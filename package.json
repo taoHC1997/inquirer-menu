@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "tsc",
+    "demo": "npx ts-node ./demo/index.ts"
   },
   "repository": {
     "url": "git+https://github.com/taoHC1997/inquirer-menu.git"
