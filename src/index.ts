@@ -53,6 +53,10 @@ export class MenuWorker {
     return nextId;
   }
 
+  private canableNext(id: string): boolean {
+    return this.menuMap.get(id)?.children ? true : false;
+  }
+
   private findChoices(id?: string) {
     let length: number;
     const keys: string[] = [];
@@ -109,6 +113,10 @@ export class MenuWorker {
           this.historyChange('PUSH', nextId);
           // try to do action
           this.tryAction(nextId);
+        }
+        // Add processing without next step
+        if (!this.canableNext(nextId)) {
+          nextId = this.historyChange('POP');
         }
         this.loop(nextId);
       })
