@@ -1,8 +1,9 @@
-import { MenuWorker } from '../src/index';
+import { InquirerWorker } from '../src/main';
 import { myMenu } from './config';
 
 function main(): void {
-  new MenuWorker(myMenu).start();
+  const inquirerWorker = InquirerWorker.getInquirerWorker();
+  inquirerWorker.startWithMenu(myMenu);
 }
 
 main();

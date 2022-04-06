@@ -1,4 +1,4 @@
-import { Menu } from '../src/index';
+import { Menu } from '../src/menu';
 
 export const myMenu: Menu[] = [
   {
