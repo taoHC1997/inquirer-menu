@@ -1,4 +1,5 @@
 import { Menu } from '../src/menu';
+import { InquirerWorker } from '../src/main'
 
 export const myMenu: Menu[] = [
   {
@@ -30,10 +31,33 @@ export const myMenu: Menu[] = [
     description: 'some worker for something else',
     children: [
       {
-        name: 'worker-2-1',
+        name: 'worker-2-1 inputs to number array',
+        action: async function () {
+          const inquirerWorker = InquirerWorker.getInquirerWorker();
+          // Note: must use `await`
+          await inquirerWorker.loop2List(parseInt).then(arr => {
+            console.log(arr);
+          });
+        },
       },
       {
-        name: 'worker-2-2',
+        name: 'worker-2-2 ask name',
+        action: async function () {
+          const inquirerWorker = InquirerWorker.getInquirerWorker();
+          const firstNmae = await inquirerWorker.ask(
+            {
+              type: "input",
+              // Note: `name` will be rewrite in InquirerWorker
+              // name: "first_name",
+              message: "What's your first name",
+            })
+          const lastNmae = await inquirerWorker.ask(
+            {
+              type: "input",
+              message: "What's your last name",
+            })
+          console.log(`Hello ${firstNmae} ${lastNmae}`);
+        },
       },
     ],
   },

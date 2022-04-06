@@ -80,13 +80,13 @@ export class MenuWorker {
     return { choices, keys };
   }
 
-  private tryAction(id: string): void {
+  private async tryAction(id: string): Promise<void> {
     if (this.menuMap.get(id)?.action) {
-      this.menuMap.get(id)?.action();
+      await this.menuMap.get(id)?.action();
     }
   }
 
-  public next(answerId?: string) {
+  public async next(answerId?: string) {
     const { choices, keys } = this.findChoices(this.nowId);
     if (answerId === 'EXIT') {
       // NOTE: handle in InquirerWorker
@@ -96,11 +96,7 @@ export class MenuWorker {
       this.nowId = keys[choices.indexOf(answerId)];
       this.historyChange('PUSH', this.nowId);
       // try to do action
-      this.tryAction(this.nowId);
-      // Add processing without next step
-      if (!this.canableNext(this.nowId)) {
-        this.nowId = this.historyChange('POP');
-      }
+      await this.tryAction(this.nowId);
     } else {
       this.nowId = undefined;
     }
@@ -108,6 +104,9 @@ export class MenuWorker {
   }
 
   public getNextQuestion() {
+    if (this.nowId && !this.canableNext(this.nowId)) {
+      this.nowId = this.historyChange('POP');
+    }
     const { choices } = this.findChoices(this.nowId);
     let nextQuestion: string[]
     if (this.nowId) {
