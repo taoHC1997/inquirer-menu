@@ -1,5 +1,4 @@
-import { Menu } from '../src/menu';
-import { InquirerWorker } from '../src/main'
+import { InquirerWorker, Menu } from '../src/index';
 
 export const myMenu: Menu[] = [
   {
