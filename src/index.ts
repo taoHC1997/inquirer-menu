@@ -175,7 +175,7 @@ export class InquirerWorker {
           if (answer) {
             this.once$?.unsubscribe();
             // end for once
-            resolve(result.answer);
+            resolve(answer);
           } else {
             this.write('nothing happened and once again');
             this.onceQuestion(question);
